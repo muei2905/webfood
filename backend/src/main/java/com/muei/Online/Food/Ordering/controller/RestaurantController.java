@@ -30,7 +30,6 @@ public class RestaurantController {
         List<Restaurant> restaurant= restaurantService.searchRestaurant(keyword);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
-
     @GetMapping()
     public ResponseEntity<List<Restaurant>> getAllRestaurant(
             @RequestHeader("Authorization") String jwt
