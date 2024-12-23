@@ -25,7 +25,9 @@ public class AdminRestaurantController {
             @RequestBody CreateRestaurantRequest req, @RequestHeader("Authorization") String jwt
             )throws Exception{
         User user = userService.findUserByJwtToken(jwt);
+
         Restaurant restaurant= restaurantService.createRestaurant(req, user);
+
         return new ResponseEntity<>(restaurant, HttpStatus.CREATED);
     }
 

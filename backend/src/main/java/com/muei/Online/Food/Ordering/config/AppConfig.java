@@ -23,7 +23,7 @@ public class AppConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.sessionManagement(managment -> managment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER, ADMIN")
+                .authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER", "ADMIN")
                         .requestMatchers("/api/**").authenticated().anyRequest().permitAll()).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf->csrf.disable()).cors(cors->cors.configurationSource(corsConfigrationSource()));
 
@@ -36,7 +36,7 @@ public class AppConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration cfs = new CorsConfiguration();
                 cfs.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:3000"
+                        "http://localhost:3000", "http://localhost:5173"
                 ));
                 cfs.setAllowedMethods(Collections.singletonList("*"));
                 cfs.setAllowCredentials(true);

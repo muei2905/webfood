@@ -1,15 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import './App.css'
+import { darkTheme } from './Theme/DarkTheme'
+import Routers from './Routers/Routers'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from './component/State/Authentication/Action'
+import { store } from './component/State/store'
+import { findCart } from './component/State/Cart/Action'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+  const jwt= localStorage.getItem("jwt")
+  const {auth}= useSelector(store=>store)
+ useEffect(()=>{
+  dispatch(getUser(auth.jwt || jwt))
+  dispatch(findCart(jwt));
+ }, [auth.jwt])
 
   return (
-    <>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline/>
+      <Routers/>
       
-    </>
+    </ThemeProvider>
   )
 }
 
