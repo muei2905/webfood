@@ -17,6 +17,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { logoutUser } from "../../component/State/Authentication/Action";
 
 const menu = [
     { title: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
@@ -30,14 +31,16 @@ const menu = [
   ];
   
 
-const AdminSideBar = () => {
+const AdminSideBar = ({handleClose}) => {
     const isSmallScreen = useMediaQuery("(max-width: 1080px)"); 
-    const dispath= useDispatch();
+    const dispatch= useDispatch();
     const navigate= useNavigate();
     const handleNavigate=(item)=>{
-        navigate(`/admin/restaurant/${item.path}`)
+        navigate(`/admin/restaurant${item.path}`)
         if(item.title==="Logout"){
             navigate("/")
+            dispatch(logoutUser())
+            handleClose()
         }
     }
   return (
@@ -51,7 +54,7 @@ const AdminSideBar = () => {
     >
       <div className="w-[70vw] lg:w-[20vw] h-screen flex flex-col justify-center text-xl space-y-[1.65rem]">
         {
-            menu.map((item, i)=><><div className="px-5 flex items-center gap-5 cursor-pointer">
+            menu.map((item, i)=><><div onClick={()=>handleNavigate(item)} className="px-5 flex items-center gap-5 cursor-pointer">
                 {item.icon}
                 <span>{item.title}</span>
                

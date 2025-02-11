@@ -154,7 +154,7 @@ import {
     };
   };
   
-  export const updateRestaurantStatus = (restaurantId, jwt) => {
+  export const updateRestaurantStatus = ({restaurantId, jwt}) => {
     return async (dispatch) => {
       dispatch({ type: UPDATE_RESTAURANT_STATUS_REQUEST });
       try {
@@ -278,7 +278,7 @@ import {
     };
   };
   
-  export const createCategory = (reqData, jwt) => {
+  export const createCategory = ({reqData, jwt}) => {
     return async (dispatch) => {
       dispatch({ type: CREATE_CATEGORY_REQUEST });
       try {

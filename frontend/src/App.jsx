@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from './component/State/Authentication/Action'
 import { store } from './component/State/store'
 import { findCart } from './component/State/Cart/Action'
+import { getRestaurantsByUserId } from './component/State/Restaurant/Action'
 
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
   dispatch(getUser(auth.jwt || jwt))
   dispatch(findCart(jwt));
  }, [auth.jwt])
-
+ useEffect(()=>{
+    dispatch(getRestaurantsByUserId(auth.jwt||jwt))
+ }, [auth.user])
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline/>

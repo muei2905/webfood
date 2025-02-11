@@ -15,22 +15,19 @@ const initialState = {
   export const ingredientReducer = (state = initialState, action) => {
     switch (action.type) {
       case GET_INGREDIENTS:
-        return {
-          ...state,
-          ingredients: action.payload,
-        };
+  return {
+    ...state,
+    ingredients: Array.isArray(action.payload) ? action.payload : [],
+  };
+
   
-      case GET_INGREDIENT_CATEGORY_SUCCESS:
-        return {
-          ...state,
-          categories: action.payload,
-        };
+        case GET_INGREDIENT_CATEGORY_SUCCESS:
+          return {
+            ...state,
+            categories: Array.isArray(action.payload) ? action.payload : [],
+          };
+        
   
-      case CREATE_INGREDIENT_CATEGORY_SUCCESS:
-        return {
-          ...state,
-          categories: [...state.categories, action.payload],
-        };
   
       case CREATE_INGREDIENT_SUCCESS:
         return {
@@ -38,13 +35,18 @@ const initialState = {
           ingredients: [...state.ingredients, action.payload],
         };
   
-      case UPDATE_STOCK:
-        return {
-          ...state,
-          ingredients: state.ingredients.map((item) =>
-            item.id === action.payload.id ? action.payload : item
-          ),
-        };
+        case UPDATE_STOCK:
+          if (!action.payload || !action.payload.id) {
+            console.error("Invalid payload in UPDATE_STOCK:", action.payload);
+            return state; 
+          }
+          return {
+            ...state,
+            ingredients: state.ingredients.map((item) =>
+              item.id === action.payload.id ? action.payload : item
+            ),
+          };
+        
   
       default:
         return state;

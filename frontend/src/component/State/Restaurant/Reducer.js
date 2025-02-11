@@ -94,23 +94,26 @@ export const restaurantReducer = (state = initialState, action) => {
     case GET_ALL_RESTAURANTS_SUCCESS:
       return { ...state, loading: false, restaurants: action.payload };
 
-    case GET_RESTAURANT_BY_ID_SUCCESS:
-      return { ...state, loading: false, restaurant: action.payload };
-
     case GET_RESTAURANT_BY_USER_ID_SUCCESS:
       return { ...state, loading: false, usersRestaurant: action.payload };
+      
+
+    case GET_RESTAURANT_BY_USER_ID_SUCCESS:
+      return { ...state, loading: false, restaurant: action.payload };
 
     case SEARCH_RESTAURANTS_SUCCESS:
       return { ...state, loading: false, restaurants: action.payload };
 
-    case UPDATE_RESTAURANT_STATUS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        restaurants: state.restaurants.map((restaurant) =>
-          restaurant.id === action.payload.id ? { ...restaurant, status: action.payload.status } : restaurant
-        ),
-      };
+      case UPDATE_RESTAURANT_STATUS_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          usersRestaurant: {
+            ...state.usersRestaurant,
+            open: action.payload.open,
+          },
+        };
+      
 
     case CREATE_EVENT_SUCCESS:
       return { ...state, loading: false, events: [...state.events, action.payload] };

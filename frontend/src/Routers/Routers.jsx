@@ -7,7 +7,7 @@ const Routers = () => {
   return (
     <div>
       <Routes>
-        <Route path='/admin/restaurants/*' element={<AdminRoute/>}/>
+        <Route path='/admin/restaurant/*' element={<AdminRoute/>}/>
         <Route path='/*' element={<CustomerRoute/>}/>
       </Routes>
     </div>

@@ -8,7 +8,6 @@ import java.util.List;
 
 @Data
 public class CreateRestaurantRequest {
-    private Long id;
     private String name;
     private String description;
     private String cuisineType;

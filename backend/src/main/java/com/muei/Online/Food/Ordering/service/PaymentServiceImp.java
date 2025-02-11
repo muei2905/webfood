@@ -19,7 +19,7 @@ public class PaymentServiceImp implements PaymentService{
         SessionCreateParams params= SessionCreateParams.builder().addPaymentMethodType(
                 SessionCreateParams.PaymentMethodType.CARD).setMode(SessionCreateParams.Mode.PAYMENT).setSuccessUrl("http://localhost:5173/payment/success/"+order.getId())
                 .setCancelUrl("http://localhost:5173/payment/fail").addLineItem(SessionCreateParams.LineItem.builder().setQuantity(1L)
-                        .setPriceData(SessionCreateParams.LineItem.PriceData.builder().setCurrency("usd").setUnitAmount((long) order.getTotalPrice())
+                        .setPriceData(SessionCreateParams.LineItem.PriceData.builder().setCurrency("usd").setUnitAmount((long) order.getTotalPrice()*100)
                                 .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder().setName("Muei Food").build()).build()).build()).build();
         Session session= Session.create(params);
         PaymentResponse response=new PaymentResponse();

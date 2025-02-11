@@ -17,8 +17,8 @@ export const getRestaurantsOrder = ({restaurantId, orderStatus, jwt}) => {
         params:{order_status:orderStatus},
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      const orders= data;
-      dispatch({ type: GET_RESTAURANTS_ORDER_SUCCESS, orders });
+      
+      dispatch({ type: GET_RESTAURANTS_ORDER_SUCCESS, payload:data});
     } catch (error) {
       dispatch({ type: GET_RESTAURANTS_ORDER_FAILURE, payload: error.message });
     }
@@ -26,15 +26,18 @@ export const getRestaurantsOrder = ({restaurantId, orderStatus, jwt}) => {
 };
 
 export const updateOrderStatus = ({orderId, orderStatus, jwt}) => {
+ 
   return async (dispatch) => {
     dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
     try {
-      const response = await Api.put(`/api/admin/orders/${orderId}/${orderStatus}`, {}, {
+      const {data} = await Api.put(`/api/admin/order/${orderId}/${orderStatus}`, {}, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-      const updateOrder =response.data;
-      dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, updateOrder });
+    
+    
+      dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload:data});
     } catch (error) {
+      console.log(error)
       dispatch({ type: UPDATE_ORDER_STATUS_FAILURE, payload: error });
     }
   };
